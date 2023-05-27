@@ -1,15 +1,7 @@
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+import * as grpc from '@grpc/grpc-js';
+import * as protoLoader from '@grpc/proto-loader';
 
 export class GRPCClient {
-    public constructor() {
-
-    }
-
-    public connect(): void {
-
-    }
-
     public static call(path: string, pkg: string, service: string, fn: string, params: any): any {
         return new Promise((resolve, reject) => {
             const grpcObj = protoLoader.loadSync(path, {

@@ -1,11 +1,9 @@
-import { Server } from '@grpc/grpc-js/src/server';
+import * as grpc from '@grpc/grpc-js';
+import * as protoLoader from '@grpc/proto-loader';
 import { PackageDefinition } from '@grpc/proto-loader';
 
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
-
 export class GRPCServer {
-    public server: Server;
+    public server: grpc.Server;
     public packageDefinition: PackageDefinition;
 
     public constructor() {
