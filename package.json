@@ -1,0 +1,16 @@
+{
+    "name": "@mateothegreat/grpc",
+    "version": "0.0.1",
+    "description": "",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "@grpc/grpc-js": "^1.8.14",
+        "@grpc/proto-loader": "^0.7.7"
+    }
+}
