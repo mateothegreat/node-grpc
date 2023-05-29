@@ -3,7 +3,7 @@ import { GRPCClient } from '../src/GRPCClient';
 import { GRPCServer } from '../src/GRPCServer';
 import { RPCCallRequest, RPCCallResponse } from './messaging';
 
-const method = (call: ServerUnaryCall<RPCCallRequest, RPCCallResponse>, callback: any) => {
+const method = (call: ServerUnaryCall<RPCCallRequest, RPCCallResponse>) => {
     console.log(`requested: ${ JSON.stringify(call.request) }`);
     return {
         result: true,

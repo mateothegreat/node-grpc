@@ -21,7 +21,7 @@ export class GRPCClient {
         this.client = new packageDefinition[pkg][service](host, grpc.credentials.createInsecure());
     }
 
-    public call<T>(fn: string, params: any): Promise<T> {
+    public call<T, R>(fn: string, params: T): Promise<R> {
         if (!this.client[fn]) throw new Error(`Function ${ fn } does not exist on client`);
 
         return new Promise((resolve, reject) => {
