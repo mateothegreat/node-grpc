@@ -14,14 +14,28 @@ export class GRPCClient {
             oneofs: true
         });
         const packageDefinition = grpc.loadPackageDefinition(grpcObj);
+
+        if (!packageDefinition[pkg]) throw new Error(`Package ${ pkg } does not exist`);
+        if (!packageDefinition[pkg][service]) throw new Error(`Service ${ service } in package ${ pkg }does not exist`);
+
         this.client = new packageDefinition[pkg][service](host, grpc.credentials.createInsecure());
     }
 
     public call<T>(fn: string, params: any): Promise<T> {
+        if (!this.client[fn]) throw new Error(`Function ${ fn } does not exist on client`);
+
         return new Promise((resolve, reject) => {
-            this.client[fn](params, (err, res) => {
-                resolve(res);
-            });
+            try {
+                this.client[fn](params, (err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(res);
+                });
+            } catch (e) {
+                reject(e);
+            }
         });
     }
 }

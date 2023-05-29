@@ -15,5 +15,7 @@ client.call('log', {
     }
 }).then((res) => {
     console.log(`returned: ${ JSON.stringify(res) }`);
+}).catch(e => {
+    console.log(e);
 });
 
