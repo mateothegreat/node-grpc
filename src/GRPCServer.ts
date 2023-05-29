@@ -26,7 +26,7 @@ export class GRPCServer {
     }
 
     public register(pkg: string, service: string, fn: string, cb: Function): void {
-        this.server.addService(this.packageDefinition['Messaging.RPC'] as any, {
+        this.server.addService(this.packageDefinition[`${ pkg }.${ service }`] as any, {
             [fn]: (call: any, callback: any) => {
                 try {
                     callback(null, cb(call));
