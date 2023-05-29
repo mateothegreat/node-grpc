@@ -3,10 +3,14 @@ syntax = "proto3";
 package test;
 
 service svc {
-  rpc successful(test_message) returns (test_message);
-  rpc errors(test_message) returns (test_message);
+  rpc add(input) returns (output);
 }
 
-message test_message {
-  string foo = 1;
+message input {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message output {
+  int32 result = 1;
 }

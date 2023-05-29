@@ -1,11 +1,8 @@
 export interface RPCCallRequest {
-    namespace: string;
-    command: string;
-    payload: { [key: string]: string };
+    a: number;
+    b: number;
 }
 
 export interface RPCCallResponse {
-    result: boolean;
-    message?: string;
-    payload: { [key: string]: string };
+    result: number;
 }

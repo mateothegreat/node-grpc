@@ -1,13 +1,14 @@
 {
     "name": "@mateothegreat/grpc",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "",
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "ts-node": "^10.9.1",
-        "typescript": "^5.0.4"
+        "typescript": "^5.0.4",
+        "vitest": "^0.31.1"
     },
     "dependencies": {
         "@grpc/grpc-js": "^1.8.14",
