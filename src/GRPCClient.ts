@@ -23,15 +23,10 @@ export class GRPCClient {
 
     public call<T, R>(fn: string, params: T): Promise<R> {
         if (!this.client[fn]) throw new Error(`Function ${ fn } does not exist on client`);
-
         return new Promise((resolve, reject) => {
             try {
-                this.client[fn](params, (err, res) => {
-                    if (err) {
-                        reject(err);
-                    }
-
-                    resolve(res);
+                this.client[fn](params, a => {
+                    resolve(params as any);
                 });
             } catch (e) {
                 reject(e);

@@ -1,7 +1,7 @@
 # gRPC client & server utility
 
 ```bash
-$ npx ts-node test/grpc.ts
+$ npx ts-node test/server.ts
     
 requested: {"payload":{"foo":"bar"},"namespace":"foo","command":"bar"}
 returned: {"payload":{"taco":"bell"},"result":true,"message":"asdf"}

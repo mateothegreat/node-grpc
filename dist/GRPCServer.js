@@ -5,6 +5,7 @@ const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 class GRPCServer {
     constructor() {
+        this.clients = [];
     }
     start(listen, path) {
         this.packageDefinition = protoLoader.loadSync(path, {
@@ -19,17 +20,19 @@ class GRPCServer {
             this.server.start();
         });
     }
-    register(pkg, service, fn, cb) {
-        this.server.addService(this.packageDefinition[`${pkg}.${service}`], {
-            [fn]: (call, callback) => {
+    register(pkg, service, implementation) {
+        const impl = {};
+        for (const fn in implementation) {
+            impl[fn] = (call, callback) => {
                 try {
-                    callback(null, cb(call));
+                    callback(null, implementation[fn](call, callback));
                 }
                 catch (e) {
                     callback(e);
                 }
-            }
-        });
+            };
+        }
+        this.server.addService(this.packageDefinition[`${pkg}.${service}`], impl);
     }
     stop() {
         this.server.forceShutdown();

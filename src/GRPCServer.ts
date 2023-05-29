@@ -1,10 +1,13 @@
 import * as grpc from '@grpc/grpc-js';
+import { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
 import * as protoLoader from '@grpc/proto-loader';
 import { PackageDefinition } from '@grpc/proto-loader';
+import { GRPCImplementation } from './GRPCImplementation';
 
 export class GRPCServer {
     public server: grpc.Server;
     public packageDefinition: PackageDefinition;
+    public clients: ServiceClient[] = [];
 
     public constructor() {
 
@@ -25,16 +28,18 @@ export class GRPCServer {
         });
     }
 
-    public register(pkg: string, service: string, fn: string, cb: Function): void {
-        this.server.addService(this.packageDefinition[`${ pkg }.${ service }`] as any, {
-            [fn]: (call: any, callback: any) => {
+    public register(pkg: string, service: string, implementation: GRPCImplementation): void {
+        const impl = {};
+        for (const fn in implementation) {
+            impl[fn] = (call: any, callback: any) => {
                 try {
-                    callback(null, cb(call));
+                    callback(null, implementation[fn](call, callback));
                 } catch (e) {
                     callback(e);
                 }
-            }
-        });
+            };
+        }
+        this.server.addService(this.packageDefinition[`${ pkg }.${ service }`] as any, impl);
     }
 
     public stop(): void {

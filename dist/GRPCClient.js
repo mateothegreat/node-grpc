@@ -24,11 +24,8 @@ class GRPCClient {
             throw new Error(`Function ${fn} does not exist on client`);
         return new Promise((resolve, reject) => {
             try {
-                this.client[fn](params, (err, res) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve(res);
+                this.client[fn](params, a => {
+                    resolve(params);
                 });
             }
             catch (e) {
