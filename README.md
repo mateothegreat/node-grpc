@@ -18,7 +18,7 @@ npm install @mateothegreat/grpc
 ### Server
 
 ```typescript
-import { GRPCServer } from '@mateothegreat/grpc';
+import { GRPCServer } from '@mateothegreat/grpc/GRPCServer';
 
 const doMath = (call: ServerUnaryCall<RPCCallRequest, RPCCallResponse>) => {
     console.log(`requested: ${ JSON.stringify(call.request) }`);
@@ -40,7 +40,7 @@ server.register('test', 'svc', {
 ### Client
 
 ```typescript
-import { GrpcClient } from '@mateothegreat/grpc';
+import { GRPCClient } from '@mateothegreat/grpc/GRPCClient';
 
 const clientTest = new GRPCClient(
     'test/test.proto',
